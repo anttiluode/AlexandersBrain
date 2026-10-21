@@ -1,0 +1,56 @@
+{
+ "ring_T0.02": {
+  "slope_measured": 0.00012198256868371332,
+  "slope_sd_approx": 3.049564217092833e-05,
+  "slope_predicted_T_over_int_psi2": 0.00012682852057893947,
+  "slope_predicted_estimator_exact": 0.0001343375459495911,
+  "ratio_to_estimator_exact": 0.9080303486374997,
+  "ratio_to_T_over_int_psi2": 0.9617913078769221,
+  "int_psi2_thermal": 157.69323736258346
+ },
+ "ring_T0.05": {
+  "slope_measured": 0.0003956091068195525,
+  "slope_sd_approx": 9.890227670488812e-05,
+  "slope_predicted_T_over_int_psi2": 0.0003249666885574047,
+  "slope_predicted_estimator_exact": 0.00036557841970961404,
+  "ratio_to_estimator_exact": 1.0821456778925638,
+  "ratio_to_T_over_int_psi2": 1.217383568068913,
+  "int_psi2_thermal": 153.8619241927857
+ },
+ "ring_T0.1": {
+  "slope_measured": 0.00066478618443832,
+  "slope_sd_approx": 0.00016619654610958,
+  "slope_predicted_T_over_int_psi2": 0.0006788244145228659,
+  "slope_predicted_estimator_exact": 0.000847037917396112,
+  "ratio_to_estimator_exact": 0.7848363937259693,
+  "ratio_to_T_over_int_psi2": 0.9793197920048101,
+  "int_psi2_thermal": 147.3134994272242
+ },
+ "disk_T0.02": {
+  "slope_measured": 3.913072182041303e-05,
+  "slope_sd_approx": 9.782680455103258e-06,
+  "slope_predicted_T_over_int_psi2": 5.0746288824771444e-05,
+  "slope_predicted_estimator_exact": 5.244744218652797e-05,
+  "ratio_to_estimator_exact": 0.7460939978968971,
+  "ratio_to_T_over_int_psi2": 0.7711050941189544,
+  "int_psi2_thermal": 394.11749042497746
+ },
+ "disk_T0.05": {
+  "slope_measured": 0.00014417308593736014,
+  "slope_sd_approx": 3.6043271484340034e-05,
+  "slope_predicted_T_over_int_psi2": 0.0001289430434567607,
+  "slope_predicted_estimator_exact": 0.0001369199929851564,
+  "ratio_to_estimator_exact": 1.0529732203023854,
+  "ratio_to_T_over_int_psi2": 1.118114495146895,
+  "int_psi2_thermal": 387.76810799232317
+ },
+ "disk_T0.1": {
+  "slope_measured": 0.00027752693638075624,
+  "slope_sd_approx": 6.938173409518906e-05,
+  "slope_predicted_T_over_int_psi2": 0.00026512162841861846,
+  "slope_predicted_estimator_exact": 0.0002956198434808136,
+  "ratio_to_estimator_exact": 0.9387967096964124,
+  "ratio_to_T_over_int_psi2": 1.0467910069658677,
+  "int_psi2_thermal": 377.1853718479099
+ }
+}
