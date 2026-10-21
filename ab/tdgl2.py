@@ -61,11 +61,24 @@ def _run_g(pr, pi, mu, cx, sx, cy, sy, Tm, dt, dx, nsteps, seed):
         pi[b] = ai
 
 
-def links(N, Bfield):
-    """Link phases theta = A . e dx at link midpoints for A = (B/2)(-y, x)."""
+def links(N, Bfield, centers=None):
+    """Link phases theta = A . e dx at link midpoints.
+    centers None: A = (B/2)(-y, x), rotation about the box centre (off-axis rings also see a
+    uniform flow (B/2) z x c across them).
+    centers given: A = (B/2) z x (r - c_k) with c_k the nearest ring centre, i.e. the same
+    flux threaded through every hole and no flow across any ring. The seams between regions
+    lie in normal material, where psi ~ 0."""
     X, Y, _, _ = grid(N)
-    thx = -(Bfield / 2) * Y * DX               # x-link (i -> i+1): A_x at (X + dx/2, Y) = -(B/2) Y
-    thy = (Bfield / 2) * X * DX                # y-link (j -> j+1): A_y at (X, Y + dx/2) = (B/2) X
+    cxm = np.zeros_like(X); cym = np.zeros_like(Y)   # centre for x-links (midpoint X + dx/2)
+    cxn = np.zeros_like(X); cyn = np.zeros_like(Y)   # centre for y-links (midpoint Y + dx/2)
+    if centers is not None:
+        C = np.array(centers)
+        dm = ((X[..., None] + DX / 2 - C[:, 0]) ** 2 + (Y[..., None] - C[:, 1]) ** 2).argmin(-1)
+        dn = ((X[..., None] - C[:, 0]) ** 2 + (Y[..., None] + DX / 2 - C[:, 1]) ** 2).argmin(-1)
+        cxm, cym = C[dm, 0], C[dm, 1]
+        cxn, cyn = C[dn, 0], C[dn, 1]
+    thx = -(Bfield / 2) * (Y - cym) * DX          # A_x at (X + dx/2, Y) = -(B/2)(Y - c_y)
+    thy = (Bfield / 2) * (X - cxn) * DX           # A_y at (X, Y + dx/2) = (B/2)(X - c_x)
     return np.cos(thx), np.sin(thx), np.cos(thy), np.sin(thy)
 
 
@@ -82,6 +95,7 @@ class Medium2:
         self.Tm = np.zeros(psi.shape)
         self.seed = int(seed) * 7919 + 3
         self.calls = 0
+        self.centers = None  # set to ring centres to thread flux through each hole
 
     @property
     def psi(self):
@@ -91,7 +105,7 @@ class Medium2:
         """T: None keeps self.Tm; a scalar sets uniform T; an array (B,N,N) or (N,N) sets the map."""
         if T is not None:
             self.Tm = np.ascontiguousarray(np.broadcast_to(np.asarray(T, float), self.pr.shape).copy())
-        cx, sx, cy, sy = links(self.N, Bfield)
+        cx, sx, cy, sy = links(self.N, Bfield, self.centers)
         n = int(round(time / dt))
         self.calls += 1
         _run_g(self.pr, self.pi, self.mu, cx, sx, cy, sy, self.Tm, dt, DX, n,

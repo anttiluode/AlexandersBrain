@@ -1,6 +1,6 @@
 """G6 - an addressed array: 4 rings, ONE global write field, a local gate per ring.
 
-usage: python gates/g6_array.py t_open ops reps [material|heat] [T_hot] [R]
+usage: python gates/g6_array.py t_open ops reps [material|heat] [T_hot] [R] [axis|holes]
 
 Each op: global flux f = value (shared by all replicas: the field is global), each replica
 opens the gate of its own randomly chosen target ring for t_open, closes it with the
@@ -27,6 +27,7 @@ REPS = int(sys.argv[3])
 kind = sys.argv[4] if len(sys.argv) > 4 else "material"
 T_hot = float(sys.argv[5]) if len(sys.argv) > 5 else 0.0
 R = float(sys.argv[6]) if len(sys.argv) > 6 else 8.0
+FIELD = sys.argv[7] if len(sys.argv) > 7 else "axis"   # axis: rotation about box centre; holes: flux per hole
 T_BG = 0.05
 W = 4.0
 N, d = (96, 12.0) if R == 8.0 else (112, 14.0)
@@ -46,6 +47,8 @@ rng = np.random.default_rng(int(t_open) + 17 * OPS + (7 if kind == "heat" else 0
 state0 = rng.integers(-1, 2, size=(REPS, 4))
 psi = np.stack([winding_state_multi(base, C, s) for s in state0])
 m = Medium2(base, psi, seed=int(t_open) + (99 if kind == "heat" else 0))
+if FIELD == "holes":
+    m.centers = C
 m.run(200.0, T=T_BG)
 
 
@@ -90,10 +93,10 @@ for op in range(OPS):
     cur = new
     print(f"op {op} v={v} target_ok={tgt_ok}/{tgt_n} real_change_ok={real_ok}/{real_n} "
           f"crosstalk={xt}/{xt_n} t={time.time() - t0:.0f}s", flush=True)
-res = {"kind": kind, "R": R, "T_hot": T_hot, "t_open": t_open, "ops": OPS, "reps": REPS, "T_bg": T_BG,
+res = {"kind": kind, "field": FIELD, "R": R, "T_hot": T_hot, "t_open": t_open, "ops": OPS, "reps": REPS, "T_bg": T_BG,
        "target_correct": float(tgt_ok / tgt_n), "real_change_correct": float(real_ok / max(real_n, 1)),
        "real_changes": int(real_n), "crosstalk_rate": float(xt / xt_n), "crosstalk_events": int(xt),
        "ring_ops_checked": int(xt_n), "log": log}
-name = f"results/g6_array_{kind}_R{int(R)}_tw{int(t_open)}" + (f"_Th{T_hot}" if kind != "material" else "") + ".json"
+name = f"results/g6_array_{kind}_R{int(R)}_tw{int(t_open)}" + ("_holes" if FIELD == "holes" else "") + (f"_Th{T_hot}" if kind != "material" else "") + ".json"
 json.dump(res, open(name, "w"), indent=1)
 print({k: v for k, v in res.items() if k != "log"})

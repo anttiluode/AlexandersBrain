@@ -1,0 +1,16 @@
+op 0 v=1 target_ok=8/8 real_change_ok=5/5 crosstalk=0/24 t=96s
+op 1 v=0 target_ok=16/16 real_change_ok=12/12 crosstalk=0/48 t=196s
+op 2 v=1 target_ok=24/24 real_change_ok=17/17 crosstalk=0/72 t=291s
+op 3 v=-1 target_ok=32/32 real_change_ok=24/24 crosstalk=12/96 t=384s
+op 4 v=-1 target_ok=39/40 real_change_ok=28/29 crosstalk=12/120 t=475s
+op 5 v=0 target_ok=47/48 real_change_ok=32/33 crosstalk=12/144 t=566s
+op 6 v=0 target_ok=55/56 real_change_ok=36/37 crosstalk=12/168 t=659s
+op 7 v=0 target_ok=63/64 real_change_ok=37/38 crosstalk=12/192 t=750s
+op 8 v=0 target_ok=71/72 real_change_ok=38/39 crosstalk=12/216 t=842s
+op 9 v=-1 target_ok=79/80 real_change_ok=45/46 crosstalk=12/240 t=935s
+op 10 v=0 target_ok=87/88 real_change_ok=50/51 crosstalk=12/264 t=1026s
+op 11 v=0 target_ok=95/96 real_change_ok=52/53 crosstalk=12/288 t=1121s
+op 12 v=-1 target_ok=103/104 real_change_ok=57/58 crosstalk=12/312 t=1216s
+op 13 v=1 target_ok=111/112 real_change_ok=65/66 crosstalk=18/336 t=1309s
+op 14 v=1 target_ok=119/120 real_change_ok=69/70 crosstalk=18/360 t=1407s
+{'kind': 'material', 'R': 10.0, 'T_hot': 0.0, 't_open': 600.0, 'ops': 15, 'reps': 8, 'T_bg': 0.05, 'target_correct': 0.9916666666666667, 'real_change_correct': 0.9857142857142858, 'real_changes': 70, 'crosstalk_rate': 0.05, 'crosstalk_events': 18, 'ring_ops_checked': 360}

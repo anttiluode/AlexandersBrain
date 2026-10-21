@@ -86,3 +86,16 @@ patch over the constriction to T_hot while the field is on should write.
 2. Heat with no field erases toward 0 or randomises; field with no heat writes nothing.
 3. If G7.1 holds, the G6 array sequence works with heat addressing too: target >= 95%,
    crosstalk <= 1%.
+
+## Addendum before G6c / G7c (written after the first array runs, before the reruns)
+
+G6 at R = 8 and R = 10 and G7b gave target accuracy 94-99% but crosstalk 5-12.5%, all at
+ops where the field changed sign. Diagnosis: the write field was a rotation about the box
+centre. A ring off that axis also sees a uniform flow of (B/2)|c| ~ 0.2 across it per flux
+quantum. It is pure gauge in steady state, but each switch of the field must be absorbed
+by the ring's phase, and the transient adds to the circulating current. The G5 ring sat on
+the axis and showed no crosstalk at the same flux difference.
+Rerun with the same flux threaded through each hole (field centred on each ring):
+1. material gates: target >= 95%, crosstalk <= 1%;
+2. heat gates (T_hot = 1, 1000 t): target >= 95%, crosstalk <= 1%.
+If crosstalk stays, the diagnosis is wrong.
