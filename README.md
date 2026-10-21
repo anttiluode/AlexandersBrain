@@ -178,11 +178,14 @@ Corrections made along the way:
 
 ## Conclusions
 
-1. **Topology fixes VMN's two costs, for small integers.** A phase memory has no barrier:
-   its error grows like T·t/∫|ψ|², whatever you do, and it can only be read against a
-   reference that pulls it (G1b, G2). A winding has a barrier, and it can be read
-   relationally, field against itself, with zero damage below a threshold (G2: 100 reads,
-   no change for |n| ≤ 2). That is a real, measured difference in kind.
+1. **Barriers fix VMN's two costs, for small integers; topology is one way to get them.**
+   A phase memory has no barrier: its error grows like T·t/∫|ψ|², whatever you do, and it
+   can only be read against a reference that pulls it (G1b, G2). A winding has a barrier,
+   and it can be read relationally, field against itself, with zero damage below a threshold
+   (G2: 100 reads, no change for |n| ≤ 2). That difference is real and measured. It is a
+   difference between barrier and no barrier, not between topology and everything else.
+   This repo had no conventional multi-well control; [AlexandersBrainSol](https://github.com/anttiluode/AlexandersBrainSol)
+   ran one, and an ordinary three-well angle matched the ring's gated memory (see below).
 2. **The price is a small alphabet.** Storing n means carrying a current. The barrier is set
    by the weakest cross-section and falls as the current rises, so only |n| ≤ 1–2 are safe at
    moderate noise. A ring is a bit or trit cell, not a dense store. Capacity comes from many
@@ -200,6 +203,41 @@ Corrections made along the way:
    them: let m write closed grooves, and see whether driven flow writes windings into those
    loops through phase slips at their weak links. That would be a medium that both learns
    routes and stores integers. It isn't built or tested.
+
+## Read against AlexandersBrainSol (21 Oct 2026)
+
+Sol built the same object independently, in 1-D (64-site complex GL ring, alphabet
+{−1, 0, +1}), with a different question: can a stored winding be **deliberately replaced**?
+His write gate lowers μ on 6 sites to −4 (a normal gap of 3 ξ) and applies a uniform phase
+bias toward the requested winding; closing the gap stores it. Fresh-seed result: 240/240
+gated replacements, 240/240 retention with the gate closed, 0/240 histories damaged by
+100 local reads. Single-query read accuracy was 92.7%, which fails his declared 95% gate.
+
+How the two repos line up:
+
+- **Same alphabet.** He chose ±1, 0 up front; G1 here found that only |n| ≤ 1–2 survive
+  moderate noise. Both point to a small-integer cell.
+- **His gate is my G4 cliff, used on purpose.** A gap ≥ 2 ξ has no stationary winding and
+  drains it (G4 here); a gap ≤ 0.5 ξ holds n = 1 beyond the run length. His "gate only" arm
+  (open, no bias) scrambles the state to 33% per label: the drain, seen from the write side.
+  My lifetime ladder gives the 2-D operating window such a gate has to span: about 1.5
+  coherence lengths of gap, from "holds for > 36000 t" to "drains in ~1000 t".
+- **Same read failure.** Neither repo gets a reliable single local read. His per-query
+  accuracy is 92.7%; my pinch read separates adjacent levels by about 2.2 sd. The integer
+  is protected, but the local signal it produces is a small current ∝ n/R. Repeating the read
+  fixes it at a time cost: 5 queries gave him 98.7–99.5%.
+- **His control removes my strongest claim.** An ordinary three-well angle, gated the same
+  way, gave 100% replacement, 100% reads and no damage. So gated, damage-free integer memory
+  does not need topology. My conclusion 1 is revised accordingly. What topology still offers,
+  untested in either repo: the barrier exists without any pinning potential, and the winding
+  is gauge invariant, so it can be read without a reference.
+- **The write mechanism is what my conclusion 4 asked for.** In a neutral medium, his uniform
+  phase bias corresponds to a driven flow around the loop, and the open gap is a weak link
+  where phase slips happen. That is the "driven flow writes windings through phase slips"
+  step, in its engineered form. Nothing in either repo learns where or what to write.
+
+Noise temperatures are not comparable between the repos: the free-energy normalisation and
+noise convention differ (his noise has variance 2T dt/dx per component in 1-D).
 
 ## Reproduce
 
