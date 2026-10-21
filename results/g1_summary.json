@@ -1,0 +1,92 @@
+[
+ {
+  "T": 0.02,
+  "n_recall_by_n": {
+   "0": 1.0,
+   "1": 1.0,
+   "2": 1.0,
+   "3": 1.0,
+   "4": 0.0
+  },
+  "theta_recall_ring": 0.325,
+  "theta_recall_disk": 0.625,
+  "t_half_theta_ring": 600.0,
+  "t_half_theta_disk": 2800.0,
+  "var_slope_ring_meas": 0.00017553163795098263,
+  "var_slope_ring_pred": 0.0001144757554645274,
+  "var_slope_disk_meas": 3.540197713807466e-05,
+  "var_slope_disk_pred": 4.921065413455529e-05
+ },
+ {
+  "T": 0.05,
+  "n_recall_by_n": {
+   "0": 1.0,
+   "1": 1.0,
+   "2": 1.0,
+   "3": 0.25,
+   "4": 0.0
+  },
+  "theta_recall_ring": 0.225,
+  "theta_recall_disk": 0.375,
+  "t_half_theta_ring": 500.0,
+  "t_half_theta_disk": 600.0,
+  "var_slope_ring_meas": 0.0001938833842066949,
+  "var_slope_ring_pred": 0.0002861893886613185,
+  "var_slope_disk_meas": 0.00020666342525248342,
+  "var_slope_disk_pred": 0.00012302663533638822
+ },
+ {
+  "T": 0.1,
+  "n_recall_by_n": {
+   "0": 1.0,
+   "1": 1.0,
+   "2": 0.75,
+   "3": 0.0,
+   "4": 0.0
+  },
+  "theta_recall_ring": 0.15,
+  "theta_recall_disk": 0.375,
+  "t_half_theta_ring": 100.0,
+  "t_half_theta_disk": 500.0,
+  "var_slope_ring_meas": 0.0005993517196083005,
+  "var_slope_ring_pred": 0.000572378777322637,
+  "var_slope_disk_meas": 0.00016863015707360436,
+  "var_slope_disk_pred": 0.00024605327067277644
+ },
+ {
+  "T": 0.2,
+  "n_recall_by_n": {
+   "0": 1.0,
+   "1": 0.125,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0
+  },
+  "theta_recall_ring": 0.05,
+  "theta_recall_disk": 0.25,
+  "t_half_theta_ring": 100.0,
+  "t_half_theta_disk": 300.0,
+  "var_slope_ring_meas": NaN,
+  "var_slope_ring_pred": 0.001144757554645274,
+  "var_slope_disk_meas": 0.0010212140471657215,
+  "var_slope_disk_pred": 0.0004921065413455529
+ },
+ {
+  "T": 0.4,
+  "n_recall_by_n": {
+   "0": 0.375,
+   "1": 0.25,
+   "2": 0.125,
+   "3": 0.0,
+   "4": 0.0
+  },
+  "theta_recall_ring": 0.175,
+  "theta_recall_disk": 0.0,
+  "t_half_theta_ring": 100.0,
+  "t_half_theta_disk": 100.0,
+  "var_slope_ring_meas": NaN,
+  "var_slope_ring_pred": 0.002289515109290548,
+  "var_slope_disk_meas": NaN,
+  "var_slope_disk_pred": 0.0009842130826911058
+ }
+]
