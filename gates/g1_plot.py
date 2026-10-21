@@ -15,9 +15,9 @@ fig, ax = plt.subplots(1, len(Ts), figsize=(3.6 * len(Ts), 3.3), sharey=True)
 ax = [ax] if len(Ts) == 1 else ax
 for a, T in zip(ax, Ts):
     s = runs[T]["series"]
-    a.plot(s["t"], s["n_recall"], label="integer n (ring)", lw=2, color="#1b6ca8")
-    a.plot(s["t"], s["theta_recall"], label="phase (ring), 9 levels", color="#d1495b")
-    a.plot(s["t"], s["disk_theta_recall"], "--", label="phase (disk), 9 levels", color="#edae49")
+    a.plot(s["t"], s["n_recall"], label="integer n (ring)", lw=2, color="#2a78d6")
+    a.plot(s["t"], s["theta_recall"], label="phase (ring), 9 levels", color="#eb6834")
+    a.plot(s["t"], s["disk_theta_recall"], "--", label="phase (disk), 9 levels", color="#1baf7a")
     a.axhline(1 / K, color="grey", lw=0.6)
     a.set_title(f"T = {T}")
     a.set_xlabel("time")

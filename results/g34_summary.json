@@ -1,0 +1,122 @@
+{
+ "constriction_0.6_T0.07": {
+  "tau": 806.6666666666666,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_1.0_T0.07": {
+  "tau": 640.0,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_1.5_T0.07": {
+  "tau": 6388.0,
+  "lower_bound": null,
+  "events": 5
+ },
+ "constriction_2.0_T0.07": {
+  "tau": null,
+  "lower_bound": 36000.0,
+  "events": 0
+ },
+ "constriction_0.6_T0.1": {
+  "tau": 326.6666666666667,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_1.0_T0.1": {
+  "tau": 283.3333333333333,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_1.5_T0.1": {
+  "tau": 4363.333333333333,
+  "lower_bound": null,
+  "events": 6
+ },
+ "constriction_2.0_T0.1": {
+  "tau": 8090.0,
+  "lower_bound": null,
+  "events": 4
+ },
+ "constriction_0.6_T0.14": {
+  "tau": 136.66666666666666,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_1.0_T0.14": {
+  "tau": 335.0,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_1.5_T0.14": {
+  "tau": 715.0,
+  "lower_bound": null,
+  "events": 12
+ },
+ "constriction_2.0_T0.14": {
+  "tau": 1520.0,
+  "lower_bound": null,
+  "events": 11
+ },
+ "gap_0.0_T0.07": {
+  "tau": null,
+  "lower_bound": 36000.0,
+  "events": 0
+ },
+ "gap_0.5_T0.07": {
+  "tau": null,
+  "lower_bound": 36000.0,
+  "events": 0
+ },
+ "gap_1.0_T0.07": {
+  "tau": 4593.333333333333,
+  "lower_bound": null,
+  "events": 6
+ },
+ "gap_1.5_T0.07": {
+  "tau": 410.0,
+  "lower_bound": null,
+  "events": 12
+ },
+ "gap_0.0_T0.1": {
+  "tau": null,
+  "lower_bound": 36000.0,
+  "events": 0
+ },
+ "gap_0.5_T0.1": {
+  "tau": null,
+  "lower_bound": 36000.0,
+  "events": 0
+ },
+ "gap_1.0_T0.1": {
+  "tau": 1856.0,
+  "lower_bound": null,
+  "events": 10
+ },
+ "gap_1.5_T0.1": {
+  "tau": 248.33333333333334,
+  "lower_bound": null,
+  "events": 12
+ },
+ "gap_0.0_T0.14": {
+  "tau": null,
+  "lower_bound": 36000.0,
+  "events": 0
+ },
+ "gap_0.5_T0.14": {
+  "tau": 6056.0,
+  "lower_bound": null,
+  "events": 5
+ },
+ "gap_1.0_T0.14": {
+  "tau": 626.6666666666666,
+  "lower_bound": null,
+  "events": 12
+ },
+ "gap_1.5_T0.14": {
+  "tau": 195.0,
+  "lower_bound": null,
+  "events": 12
+ }
+}

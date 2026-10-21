@@ -1,0 +1,24 @@
+constriction n0 1 T 0.07 value 0.6 {'tau': 806.6666666666666, 'tau_lo': np.float64(625.9658815565647), 'tau_hi': np.float64(1134.0341184434353), 'events': 12, 'wall_s': 108.2} started_in_n0 12
+constriction n0 1 T 0.07 value 1.0 {'tau': 640.0, 'tau_lo': np.float64(496.63408784653063), 'tau_hi': np.float64(899.7295485171057), 'events': 12, 'wall_s': 87.4} started_in_n0 12
+constriction n0 1 T 0.07 value 1.5 {'tau': 6388.0, 'tau_lo': np.float64(4413.999439932836), 'tau_hi': np.float64(11556.000560067163), 'events': 5, 'wall_s': 170.7} started_in_n0 12
+constriction n0 1 T 0.07 value 2.0 {'tau': None, 'tau_lower_bound': 36000.0, 'events': 0, 'wall_s': 177.9} started_in_n0 12
+gap n0 1 T 0.07 value 0.0 {'tau': None, 'tau_lower_bound': 36000.0, 'events': 0, 'wall_s': 167.7} started_in_n0 12
+gap n0 1 T 0.07 value 0.5 {'tau': None, 'tau_lower_bound': 36000.0, 'events': 0, 'wall_s': 162.7} started_in_n0 12
+gap n0 1 T 0.07 value 1.0 {'tau': 4593.333333333333, 'tau_lo': np.float64(3261.7354229631865), 'tau_hi': np.float64(7762.2645770368135), 'events': 6, 'wall_s': 161.2} started_in_n0 12
+gap n0 1 T 0.07 value 1.5 {'tau': 410.0, 'tau_lo': np.float64(318.1562125266837), 'tau_hi': np.float64(576.3892420187708), 'events': 12, 'wall_s': 44.0} started_in_n0 12
+constriction n0 1 T 0.1 value 0.6 {'tau': 326.6666666666667, 'tau_lo': np.float64(253.4903156716667), 'tau_hi': np.float64(459.23695705560607), 'events': 12, 'wall_s': 40.0} started_in_n0 12
+constriction n0 1 T 0.1 value 1.0 {'tau': 283.3333333333333, 'tau_lo': np.float64(219.86404930705783), 'tau_hi': np.float64(398.3177688747603), 'events': 12, 'wall_s': 40.6} started_in_n0 12
+constriction n0 1 T 0.1 value 1.5 {'tau': 4363.333333333333, 'tau_lo': np.float64(3098.411951131213), 'tau_hi': np.float64(7373.588048868788), 'events': 6, 'wall_s': 153.4} started_in_n0 12
+constriction n0 1 T 0.1 value 2.0 {'tau': 8090.0, 'tau_lo': np.float64(5393.333333333333), 'tau_hi': np.float64(16180.0), 'events': 4, 'wall_s': 173.2} started_in_n0 12
+gap n0 1 T 0.1 value 0.0 {'tau': None, 'tau_lower_bound': 36000.0, 'events': 0, 'wall_s': 163.2} started_in_n0 12
+gap n0 1 T 0.1 value 0.5 {'tau': None, 'tau_lower_bound': 36000.0, 'events': 0, 'wall_s': 166.0} started_in_n0 12
+gap n0 1 T 0.1 value 1.0 {'tau': 1856.0, 'tau_lo': np.float64(1410.0902958586098), 'tau_hi': np.float64(2714.354148585835), 'events': 10, 'wall_s': 163.1} started_in_n0 12
+gap n0 1 T 0.1 value 1.5 {'tau': 248.33333333333334, 'tau_lo': np.float64(192.7043726279507), 'tau_hi': np.float64(349.1138091902311), 'events': 12, 'wall_s': 35.1} started_in_n0 12
+constriction n0 1 T 0.14 value 0.6 {'tau': 136.66666666666666, 'tau_lo': np.float64(106.05207084222789), 'tau_hi': np.float64(192.12974733959027), 'events': 12, 'wall_s': 16.8} started_in_n0 12
+constriction n0 1 T 0.14 value 1.0 {'tau': 335.0, 'tau_lo': np.float64(259.9569053571684), 'tau_hi': np.float64(470.9521855519225), 'events': 12, 'wall_s': 48.9} started_in_n0 12
+constriction n0 1 T 0.14 value 1.5 {'tau': 715.0, 'tau_lo': np.float64(554.833395016046), 'tau_hi': np.float64(1005.166604983954), 'events': 12, 'wall_s': 153.5} started_in_n0 12
+constriction n0 1 T 0.14 value 2.0 {'tau': 1520.0, 'tau_lo': np.float64(1167.873031865979), 'tau_hi': np.float64(2176.126968134021), 'events': 11, 'wall_s': 152.8} started_in_n0 12
+gap n0 1 T 0.14 value 0.0 {'tau': None, 'tau_lower_bound': 36000.0, 'events': 0, 'wall_s': 157.8} started_in_n0 12
+gap n0 1 T 0.14 value 0.5 {'tau': 6056.0, 'tau_lo': np.float64(4184.593082065318), 'tau_hi': np.float64(10955.40691793468), 'events': 5, 'wall_s': 159.0} started_in_n0 12
+gap n0 1 T 0.14 value 1.0 {'tau': 626.6666666666666, 'tau_lo': np.float64(486.2875443497279), 'tau_hi': np.float64(880.9851829229992), 'events': 12, 'wall_s': 81.2} started_in_n0 12
+gap n0 1 T 0.14 value 1.5 {'tau': 195.0, 'tau_lo': np.float64(151.3181986407398), 'tau_hi': np.float64(274.13634681380563), 'events': 12, 'wall_s': 28.9} started_in_n0 12
