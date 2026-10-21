@@ -1,0 +1,12 @@
+{
+ "kind": "material",
+ "T_hot": 0.0,
+ "t_open": 600.0,
+ "ops": 15,
+ "reps": 8,
+ "T_bg": 0.05,
+ "target_correct": 0.9916666666666667,
+ "real_change_correct": 0.9848484848484849,
+ "real_changes": 66,
+ "crosstalk_rate": 0.07777777777777778,
+ "crosstalk_events": 

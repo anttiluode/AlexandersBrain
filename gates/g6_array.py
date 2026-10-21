@@ -1,6 +1,6 @@
 """G6 - an addressed array: 4 rings, ONE global write field, a local gate per ring.
 
-usage: python gates/g6_array.py t_open ops reps [heat T_hot]
+usage: python gates/g6_array.py t_open ops reps [material|heat] [T_hot] [R]
 
 Each op: global flux f = value (shared by all replicas: the field is global), each replica
 opens the gate of its own randomly chosen target ring for t_open, closes it with the
@@ -9,8 +9,11 @@ field still on (200 t), field off, wait 100 t. After every op all 4 windings are
 
 Gate kind:
   material (default): a gap of normal material (mu = -1, arc length 3) in the target ring.
-  heat (G7b):        no material change; the target ring has a constriction w = 2 at its
-                     gate and a patch of arc length 3 over it is heated to T_hot.
+  heat (G7b):        no material change; a patch of arc length 3 at the target ring's gate
+                     is heated to T_hot (full-width ring).
+  heat_constricted:  the same with a constriction w = 2 under the patch, as in G7a.
+R = 8 (box 96) or R = 10 (box 112). The first R = 8 run crashed while saving its JSON;
+its per-op log is kept as results/g6_array_material_R8_crashed_at_save.log.
 """
 import json, sys, time
 import numpy as np
@@ -23,15 +26,16 @@ OPS = int(sys.argv[2])
 REPS = int(sys.argv[3])
 kind = sys.argv[4] if len(sys.argv) > 4 else "material"
 T_hot = float(sys.argv[5]) if len(sys.argv) > 5 else 0.0
+R = float(sys.argv[6]) if len(sys.argv) > 6 else 8.0
 T_BG = 0.05
-N = 96
-R, W = 8.0, 4.0
-C = [(-12.0, -12.0), (-12.0, 12.0), (12.0, -12.0), (12.0, 12.0)]
+W = 4.0
+N, d = (96, 12.0) if R == 8.0 else (112, 14.0)
+C = [(-d, -d), (-d, d), (d, -d), (d, d)]
 GATE_ANG = [np.arctan2(-c[1], -c[0]) for c in C]  # each gate faces the box centre
 X, Y, _, _ = grid(N)
 base = ring_mu(N, C, R, W)
 gates = [gate_mask(N, c, R, W, 3.0, a) for c, a in zip(C, GATE_ANG)]
-if kind == "heat":
+if kind == "heat_constricted":
     for c, a in zip(C, GATE_ANG):  # constriction w = 2 at each gate, as in G3
         r = np.hypot(X - c[0], Y - c[1])
         ph = np.arctan2(Y - c[1], X - c[0])
@@ -62,7 +66,7 @@ for op in range(OPS):
     for b, k in enumerate(targets):
         if kind == "material":
             m.mu[b][gates[k]] = -1.0
-        else:
+        else:  # heat or heat_constricted: no material switch, only local noise
             Tmap[b][gates[k]] = T_hot
     m.run(t_open, Bfield=Bf, T=Tmap)
     for b, k in enumerate(targets):
@@ -86,10 +90,10 @@ for op in range(OPS):
     cur = new
     print(f"op {op} v={v} target_ok={tgt_ok}/{tgt_n} real_change_ok={real_ok}/{real_n} "
           f"crosstalk={xt}/{xt_n} t={time.time() - t0:.0f}s", flush=True)
-res = {"kind": kind, "T_hot": T_hot, "t_open": t_open, "ops": OPS, "reps": REPS, "T_bg": T_BG,
-       "target_correct": tgt_ok / tgt_n, "real_change_correct": real_ok / max(real_n, 1),
-       "real_changes": real_n, "crosstalk_rate": xt / xt_n, "crosstalk_events": xt,
-       "ring_ops_checked": xt_n, "log": log}
-name = f"results/g6_array_{kind}_tw{int(t_open)}" + (f"_Th{T_hot}" if kind == "heat" else "") + ".json"
+res = {"kind": kind, "R": R, "T_hot": T_hot, "t_open": t_open, "ops": OPS, "reps": REPS, "T_bg": T_BG,
+       "target_correct": float(tgt_ok / tgt_n), "real_change_correct": float(real_ok / max(real_n, 1)),
+       "real_changes": int(real_n), "crosstalk_rate": float(xt / xt_n), "crosstalk_events": int(xt),
+       "ring_ops_checked": int(xt_n), "log": log}
+name = f"results/g6_array_{kind}_R{int(R)}_tw{int(t_open)}" + (f"_Th{T_hot}" if kind != "material" else "") + ".json"
 json.dump(res, open(name, "w"), indent=1)
 print({k: v for k, v in res.items() if k != "log"})
