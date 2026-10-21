@@ -1,0 +1,16 @@
+op 0 v=1 target_ok=8/8 real_change_ok=5/5 crosstalk=0/24 t=111s
+op 1 v=0 target_ok=16/16 real_change_ok=12/12 crosstalk=0/48 t=221s
+op 2 v=1 target_ok=24/24 real_change_ok=17/17 crosstalk=0/72 t=326s
+op 3 v=-1 target_ok=32/32 real_change_ok=24/24 crosstalk=0/96 t=434s
+op 4 v=-1 target_ok=40/40 real_change_ok=29/29 crosstalk=0/120 t=545s
+op 5 v=0 target_ok=48/48 real_change_ok=36/36 crosstalk=0/144 t=655s
+op 6 v=0 target_ok=56/56 real_change_ok=43/43 crosstalk=0/168 t=765s
+op 7 v=0 target_ok=64/64 real_change_ok=45/45 crosstalk=0/192 t=873s
+op 8 v=0 target_ok=72/72 real_change_ok=48/48 crosstalk=0/216 t=980s
+op 9 v=-1 target_ok=80/80 real_change_ok=55/55 crosstalk=0/240 t=1086s
+op 10 v=0 target_ok=88/88 real_change_ok=61/61 crosstalk=0/264 t=1185s
+op 11 v=0 target_ok=96/96 real_change_ok=63/63 crosstalk=0/288 t=1287s
+op 12 v=-1 target_ok=104/104 real_change_ok=68/68 crosstalk=0/312 t=1391s
+op 13 v=1 target_ok=112/112 real_change_ok=75/75 crosstalk=0/336 t=1497s
+op 14 v=1 target_ok=120/120 real_change_ok=79/79 crosstalk=0/360 t=1602s
+{'kind': 'material', 'field': 'holes', 'R': 10.0, 'T_hot': 0.0, 't_open': 600.0, 'ops': 15, 'reps': 8, 'T_bg': 0.05, 'target_correct': 1.0, 'real_change_correct': 1.0, 'real_changes': 79, 'crosstalk_rate': 0.0, 'crosstalk_events': 0, 'ring_ops_checked': 360}

@@ -11,6 +11,10 @@ but phase drifts, and reading phase writes it.** The idea tested here is that a
 crosses the material. Alexander's horned sphere enters as the clasp, a loop that almost
 closes; G4 measures what such a loop can hold.
 
+Part 1 (G0-G4) asks what a loop can hold and how it can be read. Part 2 (G5-G7) asks how
+to write it: one global write field says *what*, a local gate says *where*, and in G7 the
+gate is nothing but local heat.
+
 ## The medium
 
 An overdamped complex Ginzburg-Landau field ψ on a 64 × 64 grid (dx = 0.5), with Langevin
@@ -131,6 +135,89 @@ drain its current (measured below), and the hole closes long before that.
 - Narrowing the ring does the same in the other direction: at T = 0.07, lifetime goes from
   640 at w = 1 to more than 36000 at w = 2, at least 56×.
 
+## Part 2: writing (G5-G7)
+
+[AlexandersBrainSol](https://github.com/anttiluode/AlexandersBrainSol) showed a gated write
+in a 1-D ring (see the comparison section below). Part 2 takes it to 2-D and to an array.
+
+**The write field.** A vector potential A enters through gauge-covariant links
+([`ab/tdgl2.py`](ab/tdgl2.py)), so a loop threaded by flux f quanta has its energy minimised at
+winding n = round(f). In a neutral superfluid this is rotation. The field is global: every
+ring sees the same f. **The gate** is local: either a 3-ξ gap of normal material opened in one
+ring (G5, G6), or a patch of the ring heated to T_hot with no material change at all (G7).
+Background noise is T = 0.05 throughout.
+
+### G5: write map of one ring ([g5_write_map.py](gates/g5_write_map.py))
+
+![G5](results/g5_write_map.png)
+
+The field is on for 2000 t; the gate is open for the first t_w of it; then field off, wait,
+read. Three start states per point:
+
+- **Gate open 1800 t:** every integer target from −2 to +2 is written exactly, from every start
+  (15/15). Fractional f rounds: ±0.6 → ±1, ±0.25 → 0. At ±1.5 (a tie) the result is mixed.
+- **Gate open 200 t:** under-writes. f = ±2 gives ±1, and a ring starting at −1 stays there with
+  f = 0. The write is speed-limited: with the gap open, the arc's phase twist builds up
+  diffusively (first check: 1.25 of the needed 1.62 turns after 600 t).
+- **Gate open, no field:** erases to 0 (6/6 at 600 t and 1800 t). This is the G4 drain, not
+  randomisation.
+- **Gate closed, field on:** the stored value holds in 93/93 cases where |n₀ − f| ≤ 2.5, and is
+  lost in 2/6 at |n₀ − f| = 3. That window is the crosstalk budget for an array.
+
+### G6: an addressed array ([g6_array.py](gates/g6_array.py))
+
+Four rings, one global field, one gate per ring, alphabet {−1, 0, 1}. 8 independent arrays,
+15 random writes each (global value, random target ring per array). All 4 rings are read
+after every write.
+
+| run | targets written | non-target rings changed |
+|---|---|---|
+| R = 8, field = rotation about the box centre | 119/120 | **28/360** |
+| R = 10, rotation about the box centre | 119/120 | **18/360** |
+| R = 10, same flux threaded through each hole | **120/120** | **0/360** |
+
+The first two runs fail the crosstalk prediction, and every crosstalk event happened at an
+op where the field changed sign. Cause: a rotation about the box centre also gives each
+off-axis ring a uniform flow across it, about 0.2 in phase-gradient units per flux
+quantum, the same size as the circulating current. It is harmless in steady state, but the
+ring's phase has to absorb it each time the field switches, and the transient adds to the
+stored current. The G5 ring sat on the axis, so it never saw this. I wrote the diagnosis
+and a new prediction into PREDICTIONS.md before the rerun. Threading the same flux through
+each hole (field centred on each ring) removed all crosstalk.
+
+So the content signal has to arrive as circulation per loop, not as one rotation of the
+whole medium. This holds for this model, which has no scalar potential: the drive is A
+itself. R = 8 was not rerun with flux per hole.
+
+### G7: heat as the gate ([g7_heat_map.py](gates/g7_heat_map.py), array: `g6_array.py ... heat`)
+
+No material is switched. A patch over the ring's weak point is heated to T_hot while the
+field is on, then cooled.
+
+**One constricted ring (w = 2), G7a:**
+
+| T_hot | open 1000 t: written n for f = −1 / 0 / +1 (start −1, 0, +1) |
+|---|---|
+| 0.1, 0.3 | no writes |
+| 1.0, 2.0 | **9/9 correct**: (−1,−1,−1) / (0,0,0) / (1,1,1) |
+
+At 200 t only the erase (f = 0) is complete. Heat with f = 0 erases to 0.
+
+The constriction narrows the crosstalk window. A closed constricted ring holding ±1 slips
+to 0 under the opposite field (2/6 cold cases). So the heat arrays below use full-width
+rings: the hot patch melts a full-width ring just as well (12/12 in a single-ring check at
+T_hot = 1 and 2).
+
+**Heat-addressed array, R = 10, T_hot = 1.0, 1000 t:**
+
+| field | targets written | non-target rings changed |
+|---|---|---|
+| rotation about the box centre | 113/120 | 45/360 |
+| flux through each hole | **117/120** | **0/360** |
+
+All 3 remaining misses are full swings (+1 → −1 or −1 → +1) that stopped at 0. Two flux
+quanta need two phase slips, and heat makes slips likely, not certain, in 1000 t.
+
 ## Prediction ledger
 
 | # | Prediction | Result |
@@ -148,6 +235,14 @@ drain its current (measured below), and the hole closes long before that.
 | G4.1 | windings need g < g* ≈ 2–3 ξ; g* smaller for larger n | **partly**: g* is 1.5–2 for n = 1, 0.5–1 for n = 2, < 0.5 for n = 3 |
 | G4.2 | lifetime falls faster than exponentially in g | **fail as measured**: about 10× per 0.5 ξ, not accelerating, then the existence cliff at g* |
 | G4.3 | a clasp traps only within a few coherence lengths | **pass**: about 1.5 ξ here |
+| G5.1 | 1800 t open writes round(f) for integer \|f\| ≤ 2 | **pass** (15/15) |
+| G5.2 | 200 t under-writes \|f\| ≥ 1.5 | **pass**; f = ±1 is also partly under-written |
+| G5.3 | gate open, no field, erases to 0 | **pass** at 600 t and 1800 t; at 200 t one of three not yet erased |
+| G5.4 | closed ring keeps n₀ for \|n₀ − f\| ≤ 2, crosstalk at 3 | **pass** (0/93 up to 2.5; 2/6 at 3) |
+| G6.1 | array: target ≥ 95%, crosstalk ≤ 1% | **fail** with rotation about the box centre (crosstalk 5–8%); **pass** with flux per hole (120/120, 0/360), a prediction added before that rerun |
+| G7.1 | a T_hot window writes round(f) | **pass**: none at T_hot ≤ 0.3, 9/9 at ≥ 1.0 (1000 t) |
+| G7.2 | heat without field erases; field without heat writes nothing | **half**: heat erases to 0, but in a constricted ring the opposite field alone knocks ±1 to 0 (2/6) |
+| G7.3 | heat-addressed array: target ≥ 95%, crosstalk ≤ 1% | **pass** with flux per hole (117/120, 0/360), on full-width rather than constricted rings; fail with rotation about the box centre |
 
 Corrections made along the way:
 - The first G1 run hit the 1-hour job limit after two noise levels. Its log is kept in
@@ -198,11 +293,18 @@ Corrections made along the way:
    is known engineering: superconducting flux logic (RSFQ, Likharev & Semenov 1991),
    persistent-current rings, atomtronic circuits. Nothing here is new physics; what this repo
    adds is the measured link back to VMN's read/drift problem and to the clasp question.
-4. **Nothing here learns.** This is a memory cell. In BrainBoxClaude the learning lived in the
-   slow material m, which wrote routes from forward × echo. The open step that would join
-   them: let m write closed grooves, and see whether driven flow writes windings into those
-   loops through phase slips at their weak links. That would be a medium that both learns
-   routes and stores integers. It isn't built or tested.
+4. **Writing works as global *what* × local *where* (Part 2).** One field broadcast to every
+   loop carries the value; a local gate decides which loop takes it. With the field threaded
+   through each hole, an array of four rings took 120/120 writes with no crosstalk in 360
+   checks, and **the gate can be just heat**: a hot spot melting the weak link wrote
+   117/120 with no crosstalk. This is the same shape as BrainBox's three-factor writer
+   (forward × echo × outcome): a broadcast signal that only acts where something local has
+   made the material writable. It is also where the noise thread (G12) lands: noise that
+   melts order is not only a nuisance, it is the switch.
+5. **What is still outside the medium.** The experimenter chooses the target ring and the
+   field value. Nothing here learns. The step that would close the loop: let a routed signal
+   (BrainBox's m-grooves) be the heat that opens a ring's gate, so the medium's own
+   traffic decides where a value is written. Not built or tested.
 
 ## Read against AlexandersBrainSol (21 Oct 2026)
 
@@ -231,7 +333,7 @@ How the two repos line up:
   does not need topology. My conclusion 1 is revised accordingly. What topology still offers,
   untested in either repo: the barrier exists without any pinning potential, and the winding
   is gauge invariant, so it can be read without a reference.
-- **The write mechanism is what my conclusion 4 asked for.** In a neutral medium, his uniform
+- **The write mechanism is what my last conclusion asked for (before Part 2 existed).** In a neutral medium, his uniform
   phase bias corresponds to a driven flow around the loop, and the open gap is a weak link
   where phase slips happen. That is the "driven flow writes windings through phase slips"
   step, in its engineered form. Nothing in either repo learns where or what to write.
@@ -251,5 +353,10 @@ noise convention differ (his noise has variance 2T dt/dx per component in 1-D).
       python gates/g34_lifetime.py constriction 1 $T 12 3000 0.6 1.0 1.5 2.0
       python gates/g34_lifetime.py gap 1 $T 12 3000 0.0 0.5 1.0 1.5
     done; python gates/g34_plot.py
+    # Part 2
+    python gates/g5_write_map.py; python gates/g5_plot.py
+    python gates/g7_heat_map.py
+    python gates/g6_array.py 600 15 8 material 0 10 holes     # also: ... 10 axis, and R = 8
+    python gates/g6_array.py 1000 15 8 heat 1.0 10 holes      # also: ... 10 axis
 
-Two CPU cores: about 4 hours in total. Noise streams are seeded per replica and per call.
+Two CPU cores: about 4 hours for Part 1 and 3 hours for Part 2. Noise streams are seeded per replica and per call.
