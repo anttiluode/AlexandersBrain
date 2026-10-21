@@ -12,9 +12,9 @@ from ab.tdgl import (Medium, annulus, disk, winding_state, winding_radii, ring_p
 
 N = 64
 K = 9
-Ts = [0.02, 0.05, 0.1, 0.2, 0.4]
+Ts = [float(a) for a in sys.argv[1:]] or [0.02, 0.05, 0.1, 0.2, 0.4]
 REP = 8
-TMAX = 6000.0
+TMAX = 3000.0
 CHUNK = 100.0
 rng = np.random.default_rng(1)
 
@@ -104,7 +104,10 @@ for T in Ts:
     s = out["per_T"][str(T)]
     print(T, {k: v for k, v in s.items() if k not in ("series",)}, flush=True)
 
-json.dump(out, open("results/g1_noise.json", "w"), indent=1)
+tag = "_".join(str(T) for T in Ts)
+json.dump(out, open(f"results/g1_noise_T{tag}.json", "w"), indent=1)
+if len(Ts) == 1:
+    sys.exit(0)
 
 import matplotlib
 matplotlib.use("Agg")
