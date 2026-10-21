@@ -54,3 +54,35 @@ quite close.
    finite-depth clasps that a real medium can build trap nothing wider than that.
 
 None of G1-G4 tests 3-D linking. The 2-D ring is the 2-D cross-section of a linked tube.
+
+---
+
+# Predictions for G5-G7 (writing), written before they were run, 21 Oct 2026
+
+Write line: a uniform rotation-like vector potential, so every ring of the same size is
+threaded by the same flux f (in flux quanta). Gate: a gap of normal material of arc length 3
+opened in one ring. A first check showed that with the gate open the arc's phase twist
+builds up diffusively, too slowly to reach f within 600 t. So write time is a variable.
+
+## G5 - write map, one ring, T = 0.05
+1. Gated arm with enough open time (1800 t): written n = round(f) for integer targets
+   |f| <= 2. At half-integer-ish f the result depends on start state and noise.
+2. Short open time (200 t) under-writes: |n| falls short of round(f) for |f| >= 1.5.
+3. Gate open, no field (f = 0): erases to n = 0. Not random as in AlexandersBrainSol's
+   1-D gate-only arm, because a 3-xi gap drains the arc's current (G4).
+4. Closed arm (field on, gate shut): n0 kept whenever |n0 - f| <= 2; crosstalk appears
+   at |n0 - f| >= 3, i.e. when the closed ring's current approaches what G1 showed
+   decays at T = 0.05.
+
+## G6 - addressed array: 4 rings, one global field, local gates, alphabet {-1, 0, 1}
+1. Random sequences of 15 writes: target correct >= 95% of ops; crosstalk (a non-target
+   ring changing) <= 1% of ring-ops.
+
+## G7 - heat as the gate (no material switch)
+The ring has a constriction (w = 2: holds n = 1 for > 36000 t at T = 0.07, G3). Heating a
+patch over the constriction to T_hot while the field is on should write.
+1. There is a T_hot window: too cold, no write; hot enough, written n = round(f) for
+   |f| <= 1.
+2. Heat with no field erases toward 0 or randomises; field with no heat writes nothing.
+3. If G7.1 holds, the G6 array sequence works with heat addressing too: target >= 95%,
+   crosstalk <= 1%.
